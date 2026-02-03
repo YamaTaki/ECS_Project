@@ -39,7 +39,7 @@ namespace ECS {
 		__VA_ARGS__ \
 	};
 
-#define DEFINE_DEHAVIOUR(Name, Data, Update)\
+#define DEFINE_BEHAVIOUR(Name, Data, Update)\
 	struct Name : ECS::Behaviour {\
 		Data \
 		void OnUpdate(ECS::World& w, ECS::Entity self, float dt) override {\

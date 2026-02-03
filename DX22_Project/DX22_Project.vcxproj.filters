@@ -34,6 +34,12 @@
     <Filter Include="ソース ファイル\System\DirectX">
       <UniqueIdentifier>{36a071c1-5faa-4aab-876a-ec9bef09e703}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\ECS">
+      <UniqueIdentifier>{0e61748b-4e8b-4a2b-a207-353024227ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\ECS">
+      <UniqueIdentifier>{51ec85f3-7b8f-4fe2-9fe1-483a43050318}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Startup.cpp">
@@ -81,6 +87,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>ソース ファイル\System\DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>ソース ファイル\System\ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defines.h">
@@ -121,6 +130,18 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>ヘッダー ファイル\System\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>ヘッダー ファイル\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>ヘッダー ファイル\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>ヘッダー ファイル\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Behaviours.h">
+      <Filter>ヘッダー ファイル\ECS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
