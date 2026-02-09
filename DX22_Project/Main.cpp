@@ -4,12 +4,11 @@
 #include "Geometry.h"
 #include "Sprite.h"
 #include "Input.h"
-#include "SceneGame.h"
 #include "Defines.h"
 #include "ShaderList.h"
+#include "SceneManager.h"
 
-//--- グローバル変数
-Scene* g_pScene;
+std::unique_ptr<SceneManager> g_upScene;
 
 HRESULT Init(HWND hWnd, UINT width, UINT height)
 {
@@ -24,16 +23,14 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 	InitInput();
 	ShaderList::Init();
 
-	// シーン
-	g_pScene = new SceneGame();
+	// シーン初期化
+	g_upScene->Init();
 
 	return hr;
 }
 
 void Uninit()
 {
-	if (g_pScene) delete g_pScene;
-
 	ShaderList::Uninit();
 	UninitInput();
 	Sprite::Uninit();
@@ -44,7 +41,7 @@ void Uninit()
 void Update()
 {
 	UpdateInput();
-	g_pScene->RootUpdate();
+	g_upScene->Update();
 }
 
 void Draw()
@@ -119,7 +116,7 @@ void Draw()
 	Geometry::SetProjection(mat[1]);
 #endif
 
-	g_pScene->RootDraw();
+	g_upScene->Draw();
 	EndDrawDirectX();
 }
 

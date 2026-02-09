@@ -34,17 +34,17 @@ namespace ECS {
 		virtual ~Behaviour() = default;
 	};
 
-#define DEFINE_DATA_COMPONENT(Name, ...)\
-	struct Name : ECS::IComponent {\
+#define DEFINE_DATA_COMPONENT(NAME, ...) \
+	struct NAME : ECS::IComponent { \
 		__VA_ARGS__ \
 	};
 
-#define DEFINE_BEHAVIOUR(Name, Data, Update)\
-	struct Name : ECS::Behaviour {\
-		Data \
-		void OnUpdate(ECS::World& w, ECS::Entity self, float dt) override {\
-			Update \
+#define DEFINE_BEHAVIOUR(NAME, DATA, UPDATE) \
+	struct NAME : ECS::Behaviour { \
+		DATA \
+		void OnUpdate(ECS::World& w, ECS::Entity self, float dt) override{ \
+			UPDATE \
 		} \
-	};
+	}
 
 }	// namespace ECS

@@ -20,7 +20,6 @@ namespace ECS {
 	DEFINE_BEHAVIOUR(PhysicsMovement,
 		/* データなし */
 		,
-		{
 			auto* vel = w.TryGet<Velocity>(self);
 			auto* t = w.TryGet<Transform>(self);
 
@@ -30,13 +29,11 @@ namespace ECS {
 				t->position.y += vel->velocity.y * dt;
 				t->position.z += vel->velocity.z * dt;
 			}
-		}
 	);
 
 	DEFINE_BEHAVIOUR(GravitySystem,
 		/* データメンバーなし */
 		,
-		{
 			// GravityとVelocityを取得
 			auto* gravity = w.TryGet<Gravity>(self);
 			auto* vel = w.TryGet<Velocity>(self);
@@ -45,19 +42,16 @@ namespace ECS {
 				// 重力加速度をY方向の速度に加算
 				vel->velocity.y += gravity->acceleration * dt;
 			}
-		}
 	);
 
 	DEFINE_BEHAVIOUR(CollisionSystem,
 		// データメンバーなし
 		,
-		{
 			auto* center = w.TryGet<Transform>(self);
 
-	if (center) {
-
+			if (center) {
+		
 			}
-		}
-		);
+	);
 
 }

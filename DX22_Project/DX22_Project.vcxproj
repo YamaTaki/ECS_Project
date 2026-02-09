@@ -151,6 +151,9 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneResult.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderList.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -173,6 +176,10 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneRequest.h" />
+    <ClInclude Include="SceneResult.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderList.h" />
     <ClInclude Include="Sprite.h" />
