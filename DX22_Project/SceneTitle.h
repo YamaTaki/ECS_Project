@@ -6,10 +6,17 @@
 * \author Shohei Takitani - ëÍíJèπïΩ
 * --------------------------------------------------------------
 * \date   2026/2/3 - begin
+*         2026/2/9 - Pro title texture (âºÉ^ÉCÉgÉãâÊëúÇÃé¿ëï)
 *********************************************************************/
 #pragma once
 #include "Scene.h"
-
+#include "Texture.h"
+#include "Sprite.h"
+#include <memory>
+#include "DirectXMath.h"
+#include "Entity.h"
+#include "World.h"
+#include "SceneChange.h"
 
 class SceneTitle :
     public Scene
@@ -18,9 +25,21 @@ public:
     SceneTitle();
     ~SceneTitle();
 
-    void Init();
-    void Update();
-    void Draw();
+    void Update() final;
+    void Draw() final;
+
+    void SetWorld(ECS::World* w);
+    void SetScene(SceneChange* s);
+
+private:
+    SceneChange* m_sceneChange;
+
+    std::unique_ptr<Texture> m_upLogo;
+    DirectX::XMFLOAT2 m_LogoPos;
+    DirectX::XMFLOAT2 m_LogoSize;
+    
+    ECS::Entity m_nextScene;
+    ECS::World *m_pWorld;
 
 };
 

@@ -18,7 +18,17 @@ enum class E_Scene {
 	Max,
 };
 
-struct SceneChangeRequest : ECS::IComponent {
-	E_Scene next;
-};
+class SceneChange {
+public:
+	SceneChange(E_Scene init) : m_scene(init){ }
+	~SceneChange() { }
 
+	void Change(E_Scene next) {
+		m_scene = next;
+	}
+	E_Scene GetScene() { return m_scene; }
+
+private:
+	E_Scene m_scene;
+
+};

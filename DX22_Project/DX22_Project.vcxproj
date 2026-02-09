@@ -177,7 +177,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SceneRequest.h" />
+    <ClInclude Include="SceneChange.h" />
     <ClInclude Include="SceneResult.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Shader.h" />

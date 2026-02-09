@@ -16,11 +16,17 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
 
-#include "SceneRequest.h"
+#include "SceneChange.h"
+
+#include "Entity.h"
+#include "World.h"
 
 
 class SceneManager
 {
+private:
+	using ScenePair = std::pair<E_Scene, std::unique_ptr<Scene>>;
+
 public:
 	SceneManager();
 	~SceneManager();
@@ -29,16 +35,34 @@ public:
 	void Update();
 	void Draw();
 
-private:
-	void ChangeScene(E_Scene scene);
 
 private:
-	E_Scene m_scene;
+	/**
+	* void TimeUpdate : SceneManager.h
+	* 時間の更新.
+	*/
+	void TimeUpdate();
+
+	/**
+	* void ChangeScene : SceneManager.h
+	* シーン遷移した際、シーンを適切な値に変更する.
+	*/
+	void ChangeScene();
+
+
+private:
+	std::unique_ptr<SceneChange> m_upScene;
 	// 各シーン
 	Scene* m_pCurrentScene;	// 現在のシーン
-	std::unique_ptr<SceneTitle> m_upTitle;	// タイトル
-	std::unique_ptr<SceneGame> m_upGame;	// ゲーム
-	std::unique_ptr<SceneResult> m_upResult;// リザルト
+	std::vector<ScenePair> m_scenes;
+
+	//-----time-----
+	float m_nowTime;
+	float m_deltaTime;
+
+
+	//-----ECS-----
+	ECS::World m_world;
 
 
 

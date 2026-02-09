@@ -167,7 +167,7 @@
     <ClInclude Include="SceneResult.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SceneRequest.h">
+    <ClInclude Include="SceneChange.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>

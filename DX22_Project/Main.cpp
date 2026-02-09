@@ -24,6 +24,7 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 	ShaderList::Init();
 
 	// ƒV[ƒ“‰Šú‰»
+	g_upScene = std::make_unique<SceneManager>();
 	g_upScene->Init();
 
 	return hr;

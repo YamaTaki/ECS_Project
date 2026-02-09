@@ -17,9 +17,13 @@ public:
     SceneResult();
     ~SceneResult();
 
-    void Init();
-    void Update();
-    void Draw();
+    void Update() final;
+    void Draw() final;
+
+    void SetWorld(ECS::World* w);
+    void SetScene(SceneChange* s);
+
+private:
 
 
 };

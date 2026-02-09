@@ -17,11 +17,6 @@ SceneResult::~SceneResult()
 {
 }
 
-void SceneResult::Init()
-{
-
-}
-
 void SceneResult::Update()
 {
 
@@ -32,3 +27,12 @@ void SceneResult::Draw()
 
 }
 
+void SceneResult::SetWorld(ECS::World* w)
+{
+
+}
+
+void SceneResult::SetScene(SceneChange* s)
+{
+
+}
