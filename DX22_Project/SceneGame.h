@@ -24,13 +24,9 @@ public:
 	void Update() final;
 	void Draw() final;
 
-	void SetWorld(ECS::World* w);
-	void SetScene(SceneChange* s);
 
 private:
 	ECS::Entity box;
-	ECS::World* m_pWorld;
-
 
 };
 

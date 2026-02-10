@@ -20,12 +20,10 @@ enum class E_Scene {
 
 class SceneChange {
 public:
-	SceneChange(E_Scene init) : m_scene(init){ }
-	~SceneChange() { }
+	SceneChange(E_Scene init) : m_scene(init) {}
+	~SceneChange() {}
 
-	void Change(E_Scene next) {
-		m_scene = next;
-	}
+	void Change(E_Scene next) { m_scene = next;	}
 	E_Scene GetScene() { return m_scene; }
 
 private:

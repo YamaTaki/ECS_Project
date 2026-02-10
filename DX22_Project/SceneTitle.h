@@ -28,18 +28,12 @@ public:
     void Update() final;
     void Draw() final;
 
-    void SetWorld(ECS::World* w);
-    void SetScene(SceneChange* s);
-
+    
 private:
-    SceneChange* m_sceneChange;
-
     std::unique_ptr<Texture> m_upLogo;
     DirectX::XMFLOAT2 m_LogoPos;
     DirectX::XMFLOAT2 m_LogoSize;
     
-    ECS::Entity m_nextScene;
-    ECS::World *m_pWorld;
 
 };
 

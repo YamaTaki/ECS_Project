@@ -63,13 +63,3 @@ void SceneTitle::Draw()
 
 	Sprite::Draw();
 }
-
-void SceneTitle::SetWorld(ECS::World* w)
-{
-	m_pWorld = w;
-}
-
-void SceneTitle::SetScene(SceneChange* s)
-{
-	m_sceneChange = s;
-}
