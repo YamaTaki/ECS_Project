@@ -25,13 +25,14 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 
 	// シーン初期化
 	g_upScene = std::make_unique<SceneManager>();
-	g_upScene->Init();
-
+	
 	return hr;
 }
 
 void Uninit()
 {
+	g_upScene.reset();
+
 	ShaderList::Uninit();
 	UninitInput();
 	Sprite::Uninit();
@@ -42,14 +43,16 @@ void Uninit()
 void Update()
 {
 	UpdateInput();
-	g_upScene->Update();
+
+	if (g_upScene)
+		g_upScene->Update();
 }
 
 void Draw()
 {
 	BeginDrawDirectX();
 
-	// 軸線の表示
+	//軸線の表示
 #ifdef _DEBUG
 	// グリッド
 	DirectX::XMFLOAT4 lineColor(0.5f, 0.5f, 0.5f, 1.0f);

@@ -27,10 +27,15 @@ namespace ECS {
 	// 前方宣言
 	class World;
 
+	enum class BehaviourPhase {
+		Update,	// 更新フェーズ
+		Draw	// 描画フェーズ
+	};
+
 	struct Behaviour
 		: IComponent {
+		virtual BehaviourPhase GetPhase() const = 0;
 		virtual void OnUpdate(World& w, Entity self, float dt) = 0;
-
 		virtual ~Behaviour() = default;
 	};
 

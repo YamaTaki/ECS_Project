@@ -1,6 +1,8 @@
 #include "Scene.h"
 
 Scene::Scene()
+	: m_sceneChange(nullptr)
+	, m_pWorld(nullptr)
 {
 }
 

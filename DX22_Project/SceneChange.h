@@ -23,8 +23,8 @@ public:
 	SceneChange(E_Scene init) : m_scene(init) {}
 	~SceneChange() {}
 
-	void Change(E_Scene next) { m_scene = next;	}
-	E_Scene GetScene() { return m_scene; }
+	inline void Change(E_Scene next) { m_scene = next;	}
+	inline E_Scene GetScene() { return m_scene; }
 
 private:
 	E_Scene m_scene;

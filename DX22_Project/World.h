@@ -5,7 +5,9 @@
 * --------------------------------------------------------------
 * \author Shohei Takitani - 滝谷昌平
 * --------------------------------------------------------------
-* \date   2026/2/2 - begin
+* \date   2026/02/02 - begin
+*		 2026/02/15 - Add EngineContext class
+*					Split m_behaviours into m_updateBehaviours and m_drawBehaviours
 *********************************************************************/
 #pragma once
 #include "Entity.h"
@@ -16,6 +18,9 @@
 #include <functional>
 #include <iostream>
 #include <algorithm>
+
+#include "EngineContext.h"
+#include "Defines.h"
 
 namespace ECS {
 
@@ -37,7 +42,7 @@ namespace ECS {
 			}
 
 
-			template<typename T, typename...Args>
+			template<typename T, typename... Args>
 			EntityBuilder& With(Args&&... args) {
 				world_->Add<T>(entity_, T(std::forward<Args>(args)...));
 				return *this;
@@ -68,6 +73,17 @@ namespace ECS {
 		void DestroyEntityWithCause(Entity entity, Cause cause);
 
 		bool IsValid(Entity entity) const;
+
+
+		//-----内部システム管理-----
+		void SetEngineContext(EngineContext* ctx) {
+			m_engineContext = ctx;
+		}
+
+		EngineContext* GetEngineContext() {
+			return m_engineContext;
+		}
+
 
 		//-----コンポーネント管理-----
 
@@ -101,14 +117,18 @@ namespace ECS {
 
 		//-----システム更新-----
 
-		void Update(float deltaTime);
+		// 更新
+		void Update(float deltaTime = (1000.0f / (100 * fFPS)));
+		// 描画
+		void Draw();
 
 	private:
-		Entity nextEntityID_;
-		std::vector<Entity> entities_;
+		Entity m_nextEntityID;
+		std::vector<Entity> m_entities;
 		std::unordered_map<Entity, std::unordered_map
-			<std::type_index, std::shared_ptr<IComponent>>> components_;
-		std::vector<std::pair<Entity, std::shared_ptr<Behaviour>>> behaviours_;
+			<std::type_index, std::shared_ptr<IComponent>>> m_components;
+		std::vector<std::pair<Entity, std::shared_ptr<Behaviour>>> m_updateBehaviours;
+		std::vector<std::pair<Entity, std::shared_ptr<Behaviour>>> m_drawBehaviours;
 
 		const char* CauseToString(Cause cause) const;
 
@@ -118,7 +138,10 @@ namespace ECS {
 		template<typename T>
 		const std::unordered_map<Entity, std::shared_ptr<T>>& GetComponentStorage() const;
 
-		std::unordered_map<std::type_index, std::unordered_map<Entity, std::shared_ptr<IComponent>>> componentStrage_;
+		std::unordered_map<std::type_index, std::unordered_map<Entity, std::shared_ptr<IComponent>>> m_componentStrage;
+
+		// 内部システム
+		EngineContext* m_engineContext = nullptr;
 
 	};
 
@@ -131,22 +154,35 @@ namespace ECS {
 		auto typeIndex = std::type_index(typeid(T));
 		auto componentPtr = std::make_shared<T>(component);
 
-		// コンポーネントストレージに追加
-		components_[entity][typeIndex] = componentPtr;
+		/**
+		* void Add : World.h
+		* エンティティ1つをsize1とし、付随したコンポーネントを同じ枠に入れておく.
+		* \param entity
+		* \param component
+		*/
+		m_components[entity][typeIndex] = componentPtr;
 
 		// Behaviourの場合は別途リストに追加
 		// dynamic_castを使用してBehaviouかどうかを判定
 		Behaviour* behaviourPtr = dynamic_cast<Behaviour*>(componentPtr.get());
 		if (behaviourPtr != nullptr) {
-			behaviours_.push_back({ entity, std::shared_ptr<Behaviour>(componentPtr, behaviourPtr) });
+			auto sharedBehaviour = std::shared_ptr<Behaviour>(componentPtr, behaviourPtr);
+
+			// BehaviourPhaseをもとに、それぞれに格納
+			if (behaviourPtr->GetPhase() == BehaviourPhase::Update) {
+				m_updateBehaviours.push_back({ entity, sharedBehaviour });
+			}
+			else if (behaviourPtr->GetPhase() == BehaviourPhase::Draw) {
+				m_drawBehaviours.push_back({ entity, sharedBehaviour });
+			}
 		}
 	}
 
 	template<typename T>
 	T* World::TryGet(Entity entity)
 	{
-		auto it = components_.find(entity);
-		if (it == components_.end()) {
+		auto it = m_components.find(entity);
+		if (it == m_components.end()) {
 			return nullptr;
 		}
 
@@ -162,8 +198,8 @@ namespace ECS {
 	template<typename T>
 	const T* World::TryGet(Entity entity) const
 	{
-		auto it = components_.find(entity);
-		if (it == components_.end()) {
+		auto it = m_components.find(entity);
+		if (it == m_components.end()) {
 			return nullptr;
 		}
 
@@ -185,8 +221,8 @@ namespace ECS {
 	template<typename T>
 	void World::Remove(Entity entity)
 	{
-		auto it = components_.find(entity);
-		if (it == components_.end()) {
+		auto it = m_components.find(entity);
+		if (it == m_components.end()) {
 			return;
 		}
 
@@ -198,13 +234,19 @@ namespace ECS {
 			// Behaviourの場合はリストからも削除
 			Behaviour* behaviourPtr = dynamic_cast<Behaviour*>(compIt->second.get());
 			if (behaviourPtr != nullptr) {
-				behaviours_.erase(
-					std::remove_if(behaviours_.begin(), behaviours_.end(),
-						[entity, behaviourPtr](const std::pair<Entity, std::shared_ptr<Behaviour>>& pair) {
-							return pair.first == entity && pair.second.get() == behaviourPtr;
-						}),
-					behaviours_.end()
-				);
+				// 両方のリストから削除
+				auto removeFromList = [entity, behaviourPtr](auto& list) {
+					list.erase(
+						std::remove_if(list.begin(), list.end(),
+							[entity, behaviourPtr](const std::pair<Entity, std::shared_ptr<Behaviour>>& pair) {
+								return pair.first == entity && pair.second.get() == behaviourPtr;
+							}),
+						list.end()
+					);
+				};
+
+				removeFromList(m_updateBehaviours);
+				removeFromList(m_drawBehaviours);
 			}
 		}
 		// コンポーネントストレージから削除
@@ -214,7 +256,7 @@ namespace ECS {
 	template<typename T>
 	void World::ForEach(std::function<void(Entity, T&)> func)
 	{
-		for (auto& entity : entities_) {
+		for (auto& entity : m_entities) {
 			T* component = TryGet<T>(entity);
 			if (component) {
 				func(entity, *component);
@@ -225,7 +267,7 @@ namespace ECS {
 	template<typename T1, typename T2>
 	void World::ForEach(std::function<void(Entity, T1&, T2&)> func)
 	{
-		for (auto& entity : entities_) {
+		for (auto& entity : m_entities) {
 			T1* c1 = TryGet<T1>(entity);
 			T2* c2 = TryGet<T2>(entity);
 			if (c1 && c2) {
@@ -237,7 +279,7 @@ namespace ECS {
 	template<typename T1, typename T2, typename T3>
 	void World::ForEach(std::function<void(Entity, T1&, T2&, T3&)> func)
 	{
-		for (auto& entity : entities_) {
+		for (auto& entity : m_entities) {
 			T1* c1 = TryGet<T1>(entity);
 			T2* c2 = TryGet<T2>(entity);
 			T3* c3 = TryGet<T3>(entity);

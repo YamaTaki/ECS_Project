@@ -11,27 +11,29 @@
 #include <algorithm>
 
 
+
 namespace ECS {
 	//=====エンティティ管理実装=====
 
 
 	World::World()
-		:nextEntityID_(1)
+		:m_nextEntityID(1)
 	{
 	}
 
 	World::~World()
 	{
 		// 全てのエンティティを削除
-		entities_.clear();
-		components_.clear();
-		behaviours_.clear();
+		m_entities.clear();
+		m_components.clear();
+		m_updateBehaviours.clear();
+		m_drawBehaviours.clear();
 	}
 
 	Entity World::CreateEntity()
 	{
-		Entity entity = nextEntityID_++;
-		entities_.push_back(entity);
+		Entity entity = m_nextEntityID++;
+		m_entities.push_back(entity);
 		return entity;
 	}
 
@@ -52,36 +54,49 @@ namespace ECS {
 		std::cout << "[World] Entity " << entity
 			<< " destroyed. Cause: " << CauseToString(cause) << std::endl;
 
-		entities_.erase(
-			std::remove(entities_.begin(), entities_.end(), entity),
-			entities_.end()
+		m_entities.erase(
+			std::remove(m_entities.begin(), m_entities.end(), entity),
+			m_entities.end()
 		);
 
 		// コンポーネントを削除
-		components_.erase(entity);
+		m_components.erase(entity);
 
-		// Behaviourリストから削除
-		behaviours_.erase(
-			std::remove_if(behaviours_.begin(), behaviours_.end(),
+		// 両方のBehaviourリストから削除
+		auto removeEntity = [entity](auto& list) {
+			list.erase(
+				std::remove_if(list.begin(), list.end(),
+					[entity](const std::pair<Entity, std::shared_ptr<Behaviour>>& pair) {
+						return pair.first == entity;
+					}),
+				list.end()
+			);
+		};
+
+		removeEntity(m_updateBehaviours);
+		removeEntity(m_drawBehaviours);
+
+	/*	m_behaviours.erase(
+			std::remove_if(m_behaviours.begin(), m_behaviours.end(),
 				[entity](const std::pair<Entity, std::shared_ptr<Behaviour>>& pair) {
 					return pair.first == entity;
 				}),
-			behaviours_.end()
-		);
+			m_behaviours.end()
+		);*/
 	}
 
 	bool World::IsValid(Entity entity) const
 	{
-		return std::find(entities_.begin(), entities_.end(), entity) != entities_.end();
+		return std::find(m_entities.begin(), m_entities.end(), entity) != m_entities.end();
 	}
 
 	void World::Update(float deltaTime)
 	{
 		// 全てのBehaviourを更新
 		// イテレータ中のエンティティ削除を考慮し、インデックスベースでループ
-		for (size_t i = 0; i < behaviours_.size(); ) {
-			Entity entity = behaviours_[i].first;
-			auto& behaviour = behaviours_[i].second;
+		for (size_t i = 0; i < m_updateBehaviours.size(); ) {
+			Entity entity = m_updateBehaviours[i].first;
+			auto& behaviour = m_updateBehaviours[i].second;
 
 			// エンティティが有効な場合のみ更新
 			if (IsValid(entity)) {
@@ -90,8 +105,25 @@ namespace ECS {
 			}
 			else {
 				// 無効なエンティティは削除
-				behaviours_.erase(behaviours_.begin() + i);
+				m_updateBehaviours.erase(m_updateBehaviours.begin() + i);
 				// インデックスはそのまま(次の要素が現在の位置に来る)
+			}
+		}
+	}
+
+	void World::Draw()
+	{
+		for (size_t i = 0; i < m_drawBehaviours.size(); ) {
+			Entity entity = m_drawBehaviours[i].first;
+			auto& behaviour = m_drawBehaviours[i].second;
+
+			// エンティティが有効な場合のみ描画
+			if (IsValid(entity)) {
+				behaviour->OnUpdate(*this, entity, 0.0f);
+				++i;
+			} else {
+				// 無効なエンティティは削除
+				m_drawBehaviours.erase(m_drawBehaviours.begin() + i);
 			}
 		}
 	}

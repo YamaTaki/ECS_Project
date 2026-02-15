@@ -143,12 +143,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraDebug.cpp" />
+    <ClCompile Include="CameraSystem.cpp" />
+    <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="DirectX.cpp" />
+    <ClCompile Include="DrawBoxSystem.cpp" />
     <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="GravitySystem.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MeshBuffer.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="PhysicsMovementSystem.cpp" />
+    <ClCompile Include="PhysicsMovementSystem.h" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -165,15 +173,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Behaviours.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraDebug.h" />
+    <ClInclude Include="CameraSystem.h" />
+    <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DirectX.h" />
+    <ClInclude Include="DirectXMathExpansion.hpp" />
+    <ClInclude Include="DrawBoxSystem.h" />
+    <ClInclude Include="EngineContext.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="GravitySystem.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MeshBuffer.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="RenderContext.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneManager.h" />

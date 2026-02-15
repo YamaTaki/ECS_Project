@@ -11,7 +11,6 @@
 #include "Defines.h"
 #include "Input.h"
 
-using namespace ECS;
 
 SceneTitle::SceneTitle()
 	:m_upLogo(nullptr)
@@ -28,6 +27,11 @@ SceneTitle::SceneTitle()
 
 SceneTitle::~SceneTitle()
 {
+}
+
+void SceneTitle::Init()
+{
+
 }
 
 void SceneTitle::Update()

@@ -20,12 +20,12 @@ public:
     SceneResult();
     ~SceneResult();
 
+    void Init() final;
     void Update() final;
     void Draw() final;
 
     
 private:
-    SceneChange* m_sceneChange;
 
     std::unique_ptr<Texture> m_upLogo;
     DirectX::XMFLOAT2 m_LogoPos;

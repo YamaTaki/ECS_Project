@@ -27,6 +27,11 @@ SceneResult::~SceneResult()
 {
 }
 
+void SceneResult::Init()
+{
+
+}
+
 void SceneResult::Update()
 {
 	if (IsKeyRelease(VK_LBUTTON)) {

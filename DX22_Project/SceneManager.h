@@ -20,6 +20,7 @@
 
 #include "Entity.h"
 #include "World.h"
+#include "EngineContext.h"
 
 
 class SceneManager
@@ -31,7 +32,6 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	void Init();
 	void Update();
 	void Draw();
 
@@ -52,6 +52,7 @@ private:
 
 private:
 	std::unique_ptr<SceneChange> m_upScene;
+	E_Scene m_currentSceneType;
 	// 各シーン
 	Scene* m_pCurrentScene;	// 現在のシーン
 	std::vector<ScenePair> m_scenes;
@@ -64,7 +65,9 @@ private:
 	//-----ECS-----
 	ECS::World m_world;
 
-
+	//-----描画処理-----
+	EngineContext m_engineContext;
+	std::unique_ptr<RenderContext> m_renderer;
 
 };
 

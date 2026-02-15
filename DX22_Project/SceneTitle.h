@@ -25,6 +25,7 @@ public:
     SceneTitle();
     ~SceneTitle();
 
+    void Init() final;
     void Update() final;
     void Draw() final;
 
