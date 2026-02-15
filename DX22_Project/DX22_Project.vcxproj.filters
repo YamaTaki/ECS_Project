@@ -37,14 +37,29 @@
     <Filter Include="ヘッダー ファイル\ECS">
       <UniqueIdentifier>{0e61748b-4e8b-4a2b-a207-353024227ded}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\System\ECS">
+    <Filter Include="ソース ファイル\ECS">
       <UniqueIdentifier>{51ec85f3-7b8f-4fe2-9fe1-483a43050318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{ab266ac6-f60f-4219-91f4-482c78a58fa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{80dab3dc-a931-46c8-8df6-75b5618f9ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ECS\Behaviours">
+      <UniqueIdentifier>{e8c71e2a-4844-4e57-b8e0-d4223e14a2e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ECS\Components">
+      <UniqueIdentifier>{e122678b-6d77-4b11-bac4-c65eb78b8612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ECS\Components">
+      <UniqueIdentifier>{c8fdbc54-1717-4932-ba4e-98200a63bb64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ECS\Behaviours">
+      <UniqueIdentifier>{fd822220-fe47-4d62-9fc7-4f217648e002}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Startup.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>ソース ファイル\System</Filter>
     </ClCompile>
@@ -88,7 +103,43 @@
       <Filter>ソース ファイル\System\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
-      <Filter>ソース ファイル\System\ECS</Filter>
+      <Filter>ソース ファイル\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneResult.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup.cpp">
+      <Filter>ソース ファイル\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraDebug.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawBoxSystem.cpp">
+      <Filter>ソース ファイル\ECS\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionSystem.cpp">
+      <Filter>ソース ファイル\ECS\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="GravitySystem.cpp">
+      <Filter>ソース ファイル\ECS\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsMovementSystem.h">
+      <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsMovementSystem.cpp">
+      <Filter>ソース ファイル\ECS\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraSystem.cpp">
+      <Filter>ソース ファイル\ECS\Behaviours</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,9 +156,6 @@
       <Filter>ヘッダー ファイル\System</Filter>
     </ClInclude>
     <ClInclude Include="Main.h">
-      <Filter>ヘッダー ファイル\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneGame.h">
       <Filter>ヘッダー ファイル\Application</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
@@ -142,6 +190,48 @@
     </ClInclude>
     <ClInclude Include="Behaviours.h">
       <Filter>ヘッダー ファイル\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneResult.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneChange.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDebug.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXMathExpansion.hpp">
+      <Filter>ヘッダー ファイル\System\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawBoxSystem.h">
+      <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSystem.h">
+      <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="GravitySystem.h">
+      <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSystem.h">
+      <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderContext.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineContext.h">
+      <Filter>ヘッダー ファイル\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -27,24 +27,29 @@ namespace ECS {
 	// 前方宣言
 	class World;
 
+	enum class BehaviourPhase {
+		Update,	// 更新フェーズ
+		Draw	// 描画フェーズ
+	};
+
 	struct Behaviour
 		: IComponent {
+		virtual BehaviourPhase GetPhase() const = 0;
 		virtual void OnUpdate(World& w, Entity self, float dt) = 0;
-
 		virtual ~Behaviour() = default;
 	};
 
-#define DEFINE_DATA_COMPONENT(Name, ...)\
-	struct Name : ECS::IComponent {\
+#define DEFINE_DATA_COMPONENT(NAME, ...) \
+	struct NAME : ECS::IComponent { \
 		__VA_ARGS__ \
 	};
 
-#define DEFINE_BEHAVIOUR(Name, Data, Update)\
-	struct Name : ECS::Behaviour {\
-		Data \
-		void OnUpdate(ECS::World& w, ECS::Entity self, float dt) override {\
-			Update \
+#define DEFINE_BEHAVIOUR(NAME, DATA, UPDATE) \
+	struct NAME : ECS::Behaviour { \
+		DATA \
+		void OnUpdate(ECS::World& w, ECS::Entity self, float dt) override{ \
+			UPDATE \
 		} \
-	};
+	}
 
 }	// namespace ECS

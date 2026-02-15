@@ -20,11 +20,13 @@ static const float fFPS = static_cast<float>(FPS);
 static const float GRAVITY = 0.98f;
 
 // タイトル
-static const char* APP_TITLE = "DX22_Golf";
+static const char* APP_TITLE = "Original Game";
 
 // 画面サイズ
-static const int SCREEN_WIDTH	= 1280;
-static const int SCREEN_HEIGHT	= 720;
+static const int SCREEN_WIDTH = 1280;
+static const int SCREEN_HEIGHT = 720;
+static const int SCREEN_WIDTH_CENTER = SCREEN_WIDTH / 2;
+static const int SCREEN_HEIGHT_CENTER = SCREEN_HEIGHT / 2;
 
 // グリッドサイズ(デバッグ用
 static const int	DEBUG_GRID_NUM		= 10;			// グリッド中心から端までの線の本数

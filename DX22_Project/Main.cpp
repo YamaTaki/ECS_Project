@@ -4,12 +4,11 @@
 #include "Geometry.h"
 #include "Sprite.h"
 #include "Input.h"
-#include "SceneGame.h"
 #include "Defines.h"
 #include "ShaderList.h"
+#include "SceneManager.h"
 
-//--- グローバル変数
-Scene* g_pScene;
+std::unique_ptr<SceneManager> g_upScene;
 
 HRESULT Init(HWND hWnd, UINT width, UINT height)
 {
@@ -24,15 +23,15 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 	InitInput();
 	ShaderList::Init();
 
-	// シーン
-	g_pScene = new SceneGame();
-
+	// シーン初期化
+	g_upScene = std::make_unique<SceneManager>();
+	
 	return hr;
 }
 
 void Uninit()
 {
-	if (g_pScene) delete g_pScene;
+	g_upScene.reset();
 
 	ShaderList::Uninit();
 	UninitInput();
@@ -44,14 +43,16 @@ void Uninit()
 void Update()
 {
 	UpdateInput();
-	g_pScene->RootUpdate();
+
+	if (g_upScene)
+		g_upScene->Update();
 }
 
 void Draw()
 {
 	BeginDrawDirectX();
 
-	// 軸線の表示
+	//軸線の表示
 #ifdef _DEBUG
 	// グリッド
 	DirectX::XMFLOAT4 lineColor(0.5f, 0.5f, 0.5f, 1.0f);
@@ -119,7 +120,7 @@ void Draw()
 	Geometry::SetProjection(mat[1]);
 #endif
 
-	g_pScene->RootDraw();
+	g_upScene->Draw();
 	EndDrawDirectX();
 }
 
