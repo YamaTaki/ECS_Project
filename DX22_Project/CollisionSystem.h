@@ -12,10 +12,10 @@
 
 namespace ECS {
 
-	struct CollisionSystem : Behaviour
+	struct Sys_Collision : Behaviour
 	{
 
-		CollisionSystem(){}
+		Sys_Collision(){}
 		void OnUpdate(World& w, Entity self, float dt);
 
 		inline BehaviourPhase GetPhase() const override {

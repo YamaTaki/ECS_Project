@@ -13,13 +13,13 @@
 
 namespace ECS {
 
-	struct CameraSystem : Behaviour 
+	struct Sys_Camera : Behaviour 
 	{
 		DirectX::XMFLOAT4X4 fmat;
 		DirectX::XMMATRIX view;
 		DirectX::XMMATRIX proj;
 		
-		CameraSystem() : fmat(), view(), proj() {}
+		Sys_Camera() : fmat(), view(), proj() {}
 		void OnUpdate(World& w, Entity self, float dt) override;
 		inline BehaviourPhase GetPhase() const override {
 			return BehaviourPhase::Update; 

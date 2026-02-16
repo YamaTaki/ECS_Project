@@ -13,10 +13,10 @@
 
 namespace ECS {
 
-	void PhysicsMovementSystem::OnUpdate(World& w, Entity self, float dt)
+	void Sys_PhysicsMovement::OnUpdate(World& w, Entity self, float dt)
 	{
-		auto* vel = w.TryGet<Velocity>(self);
-			auto* t = w.TryGet<Transform>(self);
+		auto* vel = w.TryGet<Comp_Velocity>(self);
+			auto* t = w.TryGet<Comp_Transform>(self);
 
 			if (vel && t) {
 				// 速度に基づいて位置を更新

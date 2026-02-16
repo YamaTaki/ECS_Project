@@ -13,10 +13,10 @@
 
 namespace ECS {
 
-	void GravitySystem::OnUpdate(World& w, Entity self, float dt) {
+	void Sys_Gravity::OnUpdate(World& w, Entity self, float dt) {
 		// Gravity‚ÆVelocity‚ğæ“¾
-		auto* gravity = w.TryGet<Gravity>(self);
-		auto* vel = w.TryGet<Velocity>(self);
+		auto* gravity = w.TryGet<Comp_Gravity>(self);
+		auto* vel = w.TryGet<Comp_Velocity>(self);
 
 		if (gravity && vel) {
 			// d—Í‰Á‘¬“x‚ğY•ûŒü‚Ì‘¬“x‚É‰ÁZ

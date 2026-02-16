@@ -141,6 +141,12 @@
     <ClCompile Include="CameraSystem.cpp">
       <Filter>ソース ファイル\ECS\Behaviours</Filter>
     </ClCompile>
+    <ClCompile Include="DebugCamMoveSystem.h">
+      <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugCamMoveSystem.cpp">
+      <Filter>ソース ファイル\ECS\Behaviours</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defines.h">

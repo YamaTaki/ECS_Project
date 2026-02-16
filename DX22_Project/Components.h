@@ -24,52 +24,52 @@ namespace ECS {
 	* \param XMFLOAT3 rotation：回転量 = ( 0.0f, 0.0f, 0.0f )
 	* \param XMFLOAT3 scale：大きさ = ( 1.0f, 1.0f, 1.0f )
 	*/
-	struct Transform : IComponent {
+	struct Comp_Transform : IComponent {
 		XMFLOAT3 position = XMFLOAT3();
 		XMFLOAT3 rotation = XMFLOAT3();
 		XMFLOAT3 scale = { 1.0f, 1.0f, 1.0f };
 
-		Transform(const XMFLOAT3& pos, const XMFLOAT3& scl = XMFLOAT3(1.0f, 1.0f, 1.0f), const XMFLOAT3& rot = XMFLOAT3(0.0f, 0.0f, 0.0f))
+		Comp_Transform(const XMFLOAT3& pos, const XMFLOAT3& scl = XMFLOAT3(1.0f, 1.0f, 1.0f), const XMFLOAT3& rot = XMFLOAT3(0.0f, 0.0f, 0.0f))
 			:position(pos), rotation(rot), scale(scl) {}
 	private:
-		Transform() = default;
+		Comp_Transform() = default;
 	};
 
-	struct Velocity : IComponent {
+	struct Comp_Velocity : IComponent {
 		XMFLOAT3 velocity = XMFLOAT3();
 
-		Velocity(const XMFLOAT3& vel) : velocity(vel) {}
+		Comp_Velocity(const XMFLOAT3& vel) : velocity(vel) {}
 	private:
-		Velocity() = default;
+		Comp_Velocity() = default;
 	};
 
-	struct Mesh : IComponent {
+	struct Comp_Mesh : IComponent {
 		XMFLOAT3 color = XMFLOAT3();
 
-		Mesh(const XMFLOAT3& col) : color(col){}
+		Comp_Mesh(const XMFLOAT3& col) : color(col){}
 	private:
-		Mesh() = default;
+		Comp_Mesh() = default;
 	};
 
-	struct Collision : IComponent {
+	struct Comp_Collision : IComponent {
 		XMFLOAT3 center = XMFLOAT3();
 		XMFLOAT3 size = { 1.0f, 1.0f, 1.0f };
 
-		Collision(const XMFLOAT3& pos, const XMFLOAT3& siz)
+		Comp_Collision(const XMFLOAT3& pos, const XMFLOAT3& siz)
 			:center(pos), size(siz) {}
 	private:
-		Collision() = default;
+		Comp_Collision() = default;
 	};
 
-	struct Gravity : IComponent {
+	struct Comp_Gravity : IComponent {
 		float acceleration = -9.8f;
 
-		Gravity(float acc = -9.8f) : acceleration(acc) {}
+		Comp_Gravity(float acc = -9.8f) : acceleration(acc) {}
 	private:
-		Gravity() = default;
+		Comp_Gravity() = default;
 	};
 
-	struct Camera : IComponent {
+	struct Comp_Camera : IComponent {
 		float m_fovy = DirectX::XMConvertToRadians(60);	// 画角
 		float m_aspect = 16.0f / 9.0f;	// アスペクト比
 		float m_near = CMETER(0.1f);	// ニアクリップ
@@ -78,26 +78,26 @@ namespace ECS {
 		XMFLOAT3 m_target = {0.0f, 0.0f, 0.0f};	// 注視方向ベクトル
 		XMFLOAT3 m_up = {0.0f, 1.0f, 0.0f};		// 上方向ベクトル
 
-		Camera(const XMFLOAT3& target, const XMFLOAT3& up = XMFLOAT3(0.0f, 1.0f, 0.0f))
+		Comp_Camera(const XMFLOAT3& target, const XMFLOAT3& up = XMFLOAT3(0.0f, 1.0f, 0.0f))
 			:m_target(target), m_up(up) { }
 	private:
-		Camera() = default;
+		Comp_Camera() = default;
 	};
 
 
 	//-----タグ作成-----
 
 	// プレイヤータグ
-	struct PlayerTag : IComponent {};
+	struct Tag_Player : IComponent {};
 
 	// オブジェクトタグ
-	struct ObjectTag : IComponent {};
+	struct Tag_Object : IComponent {};
 
 	// カメラタグ
-	struct ActiveCamTag : IComponent {};
+	struct Tag_ActiveCam : IComponent {};
 
 	// デバッグタグ
-	struct DebugTag : IComponent {};
+	struct Tag_Debug : IComponent {};
 
 
 

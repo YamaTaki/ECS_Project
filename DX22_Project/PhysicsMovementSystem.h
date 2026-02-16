@@ -11,10 +11,10 @@
 
 namespace ECS {
 
-	struct PhysicsMovementSystem : Behaviour 
+	struct Sys_PhysicsMovement : Behaviour 
 	{
 
-		PhysicsMovementSystem(){ }
+		Sys_PhysicsMovement(){ }
 		void OnUpdate(World& w, Entity self, float dt);
 		inline BehaviourPhase GetPhase() const override {
 			return BehaviourPhase::Update;

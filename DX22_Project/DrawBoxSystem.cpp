@@ -15,10 +15,10 @@
 
 namespace ECS {
 
-	void DrawBoxSystem::OnUpdate(World& w, Entity self, float dt)
+	void Sys_DrawBox::OnUpdate(World& w, Entity self, float dt)
 	{
-		auto* obj = w.TryGet<Transform>(self);
-		auto* tag = w.TryGet<DebugTag>(self);
+		auto* obj = w.TryGet<Comp_Transform>(self);
+		auto* tag = w.TryGet<Tag_Debug>(self);
 		auto* ctx = w.GetEngineContext();
 
 		if (obj && ctx && tag) {

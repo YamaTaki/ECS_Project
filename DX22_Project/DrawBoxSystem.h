@@ -14,7 +14,7 @@
 
 namespace ECS {
 
-	struct DrawBoxSystem : Behaviour {
+	struct Sys_DrawBox : Behaviour {
 		DirectX::XMFLOAT4X4 wvp[3];
 		DirectX::XMMATRIX trans;
 		DirectX::XMMATRIX scale;
@@ -26,7 +26,7 @@ namespace ECS {
 		const DirectX::XMFLOAT3 ROTATE = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 		const DirectX::XMFLOAT3 SCALE = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
 		
-		DrawBoxSystem() : wvp{}, trans(), scale(), rotate(),
+		Sys_DrawBox() : wvp{}, trans(), scale(), rotate(),
 			rX(), rY(), rZ(){ }
 		void OnUpdate(World& w, Entity self, float dt) override;
 

@@ -11,7 +11,7 @@
 
 namespace ECS {
 
-	void CollisionSystem::OnUpdate(World& w, Entity self, float dt)
+	void Sys_Collision::OnUpdate(World& w, Entity self, float dt)
 	{
 
 	}

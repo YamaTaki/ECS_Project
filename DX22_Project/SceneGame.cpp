@@ -13,6 +13,7 @@
 #include "CameraDebug.h"
 #include "CameraSystem.h"
 #include "DrawBoxSystem.h"
+#include "DebugCamMoveSystem.h"
 
 using namespace ECS;
 using namespace DirectX;
@@ -54,16 +55,17 @@ void SceneGame::Draw()
 void SceneGame::EntityInit()
 {
 	box = m_pWorld->Create()
-		.With<Transform>(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(5.0f, 5.0f, 5.0f))
-		.With<DebugTag>()
-		.With<DrawBoxSystem>()
+		.With<Comp_Transform>(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(5.0f, 5.0f, 5.0f))
+		.With<Tag_Debug>()
+		.With<Sys_DrawBox>()
 		.Build();
 
 	camera = m_pWorld->Create()
-		.With<Transform>(XMFLOAT3(10.0f, 10.0f, 5.0f))
-		.With<Camera>(XMFLOAT3(0.0f, 0.0f, 0.0f))
-		.With<ActiveCamTag>()
-		.With<CameraSystem>()
+		.With<Comp_Transform>(XMFLOAT3(10.0f, 10.0f, 5.0f))
+		.With<Comp_Camera>(XMFLOAT3(0.0f, 0.0f, 0.0f))
+		.With<Tag_ActiveCam>()
+		.With<Sys_Camera>()
+		.With<Sys_DebugCamMove>()
 		.Build();
 
 }
