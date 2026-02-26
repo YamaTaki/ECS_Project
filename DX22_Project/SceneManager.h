@@ -63,7 +63,7 @@ private:
 
 
 	//-----ECS-----
-	ECS::World m_world;
+	std::unique_ptr<ECS::World> m_upWorld;
 
 	//-----•`‰æˆ—-----
 	EngineContext m_engineContext;

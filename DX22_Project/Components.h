@@ -11,7 +11,6 @@
 #pragma once
 #include "Entity.h"
 #include <DirectXMath.h>
-#include "Components.h"
 #include "Defines.h"
 
 using namespace DirectX;
@@ -35,6 +34,10 @@ namespace ECS {
 		Comp_Transform() = default;
 	};
 
+	/**
+	* 移動量(Y軸移動なし)
+	* \param XMFLOAT3 velocity：移動量.
+	*/
 	struct Comp_Velocity : IComponent {
 		XMFLOAT3 velocity = XMFLOAT3();
 
@@ -51,14 +54,14 @@ namespace ECS {
 		Comp_Mesh() = default;
 	};
 
-	struct Comp_Collision : IComponent {
-		XMFLOAT3 center = XMFLOAT3();
+	struct Comp_Collision_AABB : IComponent {
 		XMFLOAT3 size = { 1.0f, 1.0f, 1.0f };
+		XMFLOAT3 half = { 1.0f, 1.0f, 1.0f };
 
-		Comp_Collision(const XMFLOAT3& pos, const XMFLOAT3& siz)
-			:center(pos), size(siz) {}
+		Comp_Collision_AABB(XMFLOAT3 s) : size(s), half({ s.x / 2.0f, s.y / 2.0f, s.z / 2.0f }) {}
 	private:
-		Comp_Collision() = default;
+		Comp_Collision_AABB() = default;
+
 	};
 
 	struct Comp_Gravity : IComponent {
@@ -67,6 +70,7 @@ namespace ECS {
 		Comp_Gravity(float acc = -9.8f) : acceleration(acc) {}
 	private:
 		Comp_Gravity() = default;
+
 	};
 
 	struct Comp_Camera : IComponent {
@@ -84,13 +88,24 @@ namespace ECS {
 		Comp_Camera() = default;
 	};
 
+	struct Comp_PhysicsShot : IComponent {
+
+		Comp_PhysicsShot(){}
+
+	private:
+//		Comp_PhysicsShot() = default;
+	};
+
 
 	//-----タグ作成-----
 
 	// プレイヤータグ
 	struct Tag_Player : IComponent {};
 
-	// オブジェクトタグ
+	/**
+	* オブジェクトタグ.
+	* 当たり判定の処理対象
+	*/
 	struct Tag_Object : IComponent {};
 
 	// カメラタグ
@@ -99,6 +114,8 @@ namespace ECS {
 	// デバッグタグ
 	struct Tag_Debug : IComponent {};
 
+	// 当たり判定適応タグ
+	struct Tag_Collison : IComponent {};
 
 
 }	// namespace ECS

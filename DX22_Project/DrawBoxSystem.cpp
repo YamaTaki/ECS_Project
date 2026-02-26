@@ -54,10 +54,12 @@ namespace ECS {
 			DirectX::XMStoreFloat4x4(&wvp[1], view);
 			DirectX::XMStoreFloat4x4(&wvp[2], proj);
 
+			SetDepthTest(true);
 			Geometry::SetWorld(wvp[0]);
 			Geometry::SetView(wvp[1]);
 			Geometry::SetProjection(wvp[2]);
 			Geometry::DrawBox();
+			SetDepthTest(false);
 		}
 	}
 }	// namespace ECS

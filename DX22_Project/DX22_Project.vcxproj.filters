@@ -126,9 +126,6 @@
     <ClCompile Include="DrawBoxSystem.cpp">
       <Filter>ソース ファイル\ECS\Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionSystem.cpp">
-      <Filter>ソース ファイル\ECS\Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="GravitySystem.cpp">
       <Filter>ソース ファイル\ECS\Behaviours</Filter>
     </ClCompile>
@@ -145,6 +142,12 @@
       <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
     </ClCompile>
     <ClCompile Include="DebugCamMoveSystem.cpp">
+      <Filter>ソース ファイル\ECS\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsShotSystem.cpp">
+      <Filter>ソース ファイル\ECS\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="VelocitySystem.cpp">
       <Filter>ソース ファイル\ECS\Behaviours</Filter>
     </ClCompile>
   </ItemGroup>
@@ -221,9 +224,6 @@
     <ClInclude Include="DrawBoxSystem.h">
       <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionSystem.h">
-      <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
-    </ClInclude>
     <ClInclude Include="GravitySystem.h">
       <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
     </ClInclude>
@@ -238,6 +238,12 @@
     </ClInclude>
     <ClInclude Include="EngineContext.h">
       <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsShotSystem.h">
+      <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="VelocitySystem.h">
+      <Filter>ヘッダー ファイル\ECS\Behaviours</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

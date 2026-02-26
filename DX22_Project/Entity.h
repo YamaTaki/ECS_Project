@@ -10,6 +10,8 @@
 #pragma once
 #include <cstdint>
 
+#define N_ECS namespace ECS
+
 namespace ECS {
 
 	/**
@@ -18,7 +20,7 @@ namespace ECS {
 	using Entity = uint32_t;
 
 	// 無効なエンティティを示す定数
-	constexpr Entity INVALID_ENTITY = 0;
+	static constexpr Entity INVALID_ENTITY = 0;
 
 	struct IComponent {
 		virtual ~IComponent() = default;

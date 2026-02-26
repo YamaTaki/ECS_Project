@@ -10,20 +10,26 @@
 #include "PhysicsMovementSystem.h"
 #include "World.h"
 #include "Components.h"
+#include "Input.h"
 
 namespace ECS {
 
 	void Sys_PhysicsMovement::OnUpdate(World& w, Entity self, float dt)
 	{
 		auto* vel = w.TryGet<Comp_Velocity>(self);
-			auto* t = w.TryGet<Comp_Transform>(self);
 
-			if (vel && t) {
-				// 速度に基づいて位置を更新
-				t->position.x += vel->velocity.x * dt;
-				t->position.y += vel->velocity.y * dt;
-				t->position.z += vel->velocity.z * dt;
-			}
+		if (vel) {
+			
+			float moveX = 0.0f;
+			float moveZ = 0.0f;
+
+			if (IsKeyPress(VK_UP))		moveZ--;
+			if (IsKeyPress(VK_DOWN))	moveZ++;
+			if (IsKeyPress(VK_RIGHT))	moveX--;
+			if (IsKeyPress(VK_LEFT))	moveX++;
+			
+			vel->velocity = DirectX::XMFLOAT3(moveX, 0.0f, moveZ);
+		}
 	}
 
 }	// namespace ECS

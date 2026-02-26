@@ -17,10 +17,16 @@ namespace ECS {
 		// Gravity‚ÆVelocity‚ðŽæ“¾
 		auto* gravity = w.TryGet<Comp_Gravity>(self);
 		auto* vel = w.TryGet<Comp_Velocity>(self);
+		auto* trans = w.TryGet<Comp_Transform>(self);
 
 		if (gravity && vel) {
 			// d—Í‰Á‘¬“x‚ðY•ûŒü‚Ì‘¬“x‚É‰ÁŽZ
 			vel->velocity.y += gravity->acceleration * dt;
+
+			if (trans->position.y < 0.0f)
+				vel->velocity.y = 0.0f;
+
+			trans->position.y += vel->velocity.y;
 		}
 
 	}

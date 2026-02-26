@@ -16,6 +16,7 @@ namespace ECS {
 
 	void Sys_DebugCamMove::OnUpdate(World& w, Entity self, float dt)
 	{
+#ifdef _DEBUG
 		auto* trans = w.TryGet<Comp_Transform>(self);
 		auto* cam = w.TryGet<Comp_Camera>(self);
 		auto* active = w.TryGet<Tag_ActiveCam>(self);
@@ -40,5 +41,6 @@ namespace ECS {
 			trans->position.y = sinf(m_radY) * m_radius + cam->m_target.y;
 			trans->position.z = cosf(m_radY) * cosf(m_radXZ) * m_radius + cam->m_target.z;
 		}
+#endif // _DEBUG
 	}
 }
