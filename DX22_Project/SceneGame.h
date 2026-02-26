@@ -33,6 +33,7 @@ private:
 private:
 	ECS::Entity box;
 	ECS::Entity camera;
+	ECS::Entity other;
 
 };
 

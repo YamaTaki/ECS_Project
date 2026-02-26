@@ -9,7 +9,7 @@
 *********************************************************************/
 #include "World.h"
 #include <algorithm>
-
+#include "Components.h"
 
 
 namespace ECS {
@@ -90,6 +90,14 @@ namespace ECS {
 		return std::find(m_entities.begin(), m_entities.end(), entity) != m_entities.end();
 	}
 
+	Entity World::GetActiveCamera() const
+	{
+		for (auto e : m_entities) {
+			if (Has<Comp_Camera>(e) && Has<Tag_ActiveCam>(e)) { return e; }
+		}
+		return INVALID_ENTITY;
+	}
+
 	void World::Update(float deltaTime)
 	{
 		// 全てのBehaviourを更新
@@ -109,6 +117,9 @@ namespace ECS {
 				// インデックスはそのまま(次の要素が現在の位置に来る)
 			}
 		}
+
+		// 当たり判定の実装
+		CollisionUpdate(deltaTime);
 	}
 
 	void World::Draw()
@@ -125,6 +136,48 @@ namespace ECS {
 				// 無効なエンティティは削除
 				m_drawBehaviours.erase(m_drawBehaviours.begin() + i);
 			}
+		}
+	}
+
+	void World::CollisionUpdate(float dt)
+	{
+		std::vector<Entity> list;
+
+		ForEach<Comp_Transform, Comp_Collision_AABB, Tag_Collison>(
+			[&](Entity e, Comp_Transform&, Comp_Collision_AABB&, Tag_Collison&) {
+				list.push_back(e);
+			});
+		for (size_t i = 0; i < list.size(); ++i) {
+			for (size_t j = i + 1; j < list.size(); ++j) {
+				if (CheckAABB(list[i], list[j])) 
+				{
+					// 衝突処理
+					OutputDebugStringA("\n--- On Collision !! ");
+				}
+			}
+		}
+
+	}
+
+	bool World::CheckAABB(Entity a, Entity b)
+	{
+		auto* tA = TryGet<Comp_Transform>(a);
+		auto* bA = TryGet<Comp_Collision_AABB>(a);
+
+		auto* tB = TryGet<Comp_Transform>(b);
+		auto* bB = TryGet<Comp_Collision_AABB>(b);
+
+		if (tA && bA && tB && bB) {
+
+			float dx = fabs(tA->position.x - tB->position.x);
+			float dy = fabs(tA->position.y - tB->position.y);
+			float dz = fabs(tA->position.z - tB->position.z);
+
+			if (dx > (bA->half.x + bB->half.x)) return false;
+			if (dy > (bA->half.y + bB->half.y)) return false;
+			if (dz > (bA->half.z + bB->half.z)) return false;
+
+			return true;
 		}
 	}
 

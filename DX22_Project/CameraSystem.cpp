@@ -15,11 +15,11 @@
 
 namespace ECS {
 
-	void CameraSystem::OnUpdate(World& w, Entity self, float dt)
+	void Sys_Camera::OnUpdate(World& w, Entity self, float dt)
 	{
-		auto* cam = w.TryGet<Camera>(self);
-		auto* trans = w.TryGet<Transform>(self);
-		auto* active = w.TryGet<ActiveCamTag>(self);
+		auto* cam = w.TryGet<Comp_Camera>(self);
+		auto* trans = w.TryGet<Comp_Transform>(self);
+		auto* active = w.TryGet<Tag_ActiveCam>(self);
 
 		if (cam && trans && active) {
 			using namespace DirectX;

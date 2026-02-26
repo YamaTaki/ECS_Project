@@ -16,9 +16,11 @@ SceneManager::SceneManager()
 	, m_scenes{}
 {
 	// ワールド情報の初期化
+	m_upWorld = std::make_unique<ECS::World>();
 	m_renderer = std::make_unique<RenderContext>();
+
 	m_engineContext.renderer = m_renderer.get();
-	m_world.SetEngineContext(&m_engineContext);
+	m_upWorld->SetEngineContext(&m_engineContext);
 
 
 	// 各シーンの初期化
@@ -44,7 +46,7 @@ SceneManager::SceneManager()
 	// DI形式のセッター呼び出し
 	for (int i = 0; i < static_cast<int>(E_Scene::Max); ++i) {
 		m_scenes[i].second->SetScene(m_upScene.get());
-		m_scenes[i].second->SetWorld(&m_world);
+		m_scenes[i].second->SetWorld(m_upWorld.get());
 		m_scenes[i].second->Init();
 	}
 

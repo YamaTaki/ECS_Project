@@ -8,6 +8,7 @@
 * \date   2026/02/02 - begin
 *		 2026/02/15 - Add EngineContext class
 *					Split m_behaviours into m_updateBehaviours and m_drawBehaviours
+*		 2026/02/26 - Add "Collision Update" function and "CheckAABB" function
 *********************************************************************/
 #pragma once
 #include "Entity.h"
@@ -84,6 +85,7 @@ namespace ECS {
 			return m_engineContext;
 		}
 
+		Entity GetActiveCamera() const;
 
 		//-----コンポーネント管理-----
 
@@ -121,6 +123,10 @@ namespace ECS {
 		void Update(float deltaTime = (1000.0f / (100 * fFPS)));
 		// 描画
 		void Draw();
+
+		//--- 当たり判定
+		void CollisionUpdate(float dt);
+		bool CheckAABB(Entity a, Entity b);
 
 	private:
 		Entity m_nextEntityID;
